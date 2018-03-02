@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<!-- Log4j 2.x 配置文件。每30秒自动检查和应用配置文件的更新； -->
+<Configuration status="info" monitorInterval="30" strict="true"
+	schema="Log4J-V2.2.xsd">
+
+	<properties>
+		<property name="LOG_HOME">logs</property>
+		<property name="LOG_NAME">jdbc-demo</property>
+	</properties>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<ThresholdFilter level="info" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %4p %t (%F:%L) - %m%n" />
+		</Console>
+
+		<!-- <File name="file" fileName="logs/fetchdata_file.log" append="true"> 
+			<PatternLayout pattern= "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"/> 
+			</File> -->
+
+		<!-- 输出到文件，按天或者超过80MB分割 -->
+		<RollingFile name="RollingFile" fileName="${LOG_HOME}/${LOG_NAME}.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+			<!-- 需要记录的级别 -->
+			<!-- <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" 
+				/> -->
+			<PatternLayout charset="UTF-8"
+				pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %4p %t (%F:%L) - %m%n" />
+			<!-- <PatternLayout pattern="%m%n" /> -->
+			<Policies>
+				<!-- <OnStartupTriggeringPolicy /> -->
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="80 MB" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info"> <!-- 全局配置 -->
+			<AppenderRef ref="Console" />
+			<!-- <AppenderRef ref="file" /> -->
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+
+</Configuration>

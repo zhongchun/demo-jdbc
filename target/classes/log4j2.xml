@@ -6,7 +6,7 @@
 
 	<properties>
 		<property name="LOG_HOME">logs</property>
-		<property name="LOG_NAME">jdbc-demo</property>
+		<property name="LOG_NAME">demo-jdbc</property>
 	</properties>
 
 	<Appenders>

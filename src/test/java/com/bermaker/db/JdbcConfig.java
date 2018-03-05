@@ -10,10 +10,12 @@ package com.bermaker.db;
 
 import javax.sql.DataSource;
 
+//import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+//import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -34,8 +36,18 @@ import com.bermaker.db.dao.impl.JdbcSpittleRepository;
 @Configuration
 public class JdbcConfig {
 
+    // @Bean
+    // public BasicDataSource basicDataSource() {
+    // BasicDataSource ds = new BasicDataSource();
+    // ds.setDriverClassName("org.h2.Driver");
+    // ds.setUrl("jdbc:h2:tcp://localhost/~/spitter");
+    // ds.setInitialSize(5);
+    // return ds;
+    // }
+
     @Bean
     public DataSource dataSource() {
+        // DriverManagerDataSource dataSource = null;
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
                 .addScripts("classpath:db/schema.sql", "classpath:db/test-data.sql").build();
     }
